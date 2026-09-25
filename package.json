@@ -1,0 +1,15 @@
+{
+  "name": "sauce-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+     "test" : "npx playwright test --project=chromium --headed"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.2"
+  }
+}
