@@ -4,6 +4,7 @@ import { LoginPage } from '../pages/LoginPage';
 import { CartPage } from '../pages/CartPage';
 import { checkoutInfoPage } from '../pages/CheckoutInfoPage';
 import { CartOverViewPage } from '../pages/CartOverViewPage';
+import { checkoutCompletePage } from '../pages/checkoutCompletePage';
 
 test('Inventory reset App Test ', async ({ page }) => {
 
@@ -12,6 +13,7 @@ test('Inventory reset App Test ', async ({ page }) => {
     const cartPage = new CartPage(page);
     const infoPage = new checkoutInfoPage(page);
     const cartOverView = new CartOverViewPage(page);
+    const complete = new checkoutCompletePage(page);
 
     await loginPage.goto();
     await loginPage.input('standard_user', 'secret_sauce');
@@ -39,9 +41,9 @@ test('Inventory reset App Test ', async ({ page }) => {
 
     const productsName = ["Sauce Labs Backpack", "Sauce Labs Bolt T-Shirt", "Sauce Labs Onesie"];
     const productsPrice = await cartPage.getPriceOfProduct().allTextContents();
-    let sum=0;
+    let sum = 0;
 
-    for(const [index , name ] of productsName.entries()){
+    for (const [index, name] of productsName.entries()) {
         //await cartPage.getTitelOFProducts().nth(i).textContent();
         //await cartPage.getTitelOFProducts().allTextContents();
         //  let productName = await cartPage.getTitelOFProducts().nth(i).textContent();
@@ -49,7 +51,7 @@ test('Inventory reset App Test ', async ({ page }) => {
         // page.expect().toHaveText()
 
         expect(await cartPage.getTitelOFProducts().nth(index)).toHaveText(name);
-        let cleanPrice = productsPrice[index].replace("$","");
+        let cleanPrice = productsPrice[index].replace("$", "");
         // console.log(cleanPrice);
         sum += Number(cleanPrice);
     }
@@ -58,44 +60,58 @@ test('Inventory reset App Test ', async ({ page }) => {
     expect(sum).toBe(expectedTotal)
     console.log("expected is equal to actual");
 
-     await cartPage.getCheckoutButton().scrollIntoViewIfNeeded();
-     await page.waitForTimeout(2000);
-     await cartPage.clickCheckout();
-     await page.waitForTimeout(2000);
+    await cartPage.getCheckoutButton().scrollIntoViewIfNeeded();
+    await page.waitForTimeout(2000);
+    await cartPage.clickCheckout();
+    await page.waitForTimeout(2000);
 
-     await infoPage.fillFirstName('Nahin');
-     await page.waitForTimeout(1000);
-     await infoPage.fillLastName('Islam');
-     await page.waitForTimeout(1000);
-     await infoPage.fillPostalCode('10002');
-     await page.waitForTimeout(1000);
-     await infoPage.clickContinue();
-     await page.waitForTimeout(2000);
+    await infoPage.fillFirstName('Nahin');
+    await page.waitForTimeout(1000);
+    await infoPage.fillLastName('Islam');
+    await page.waitForTimeout(1000);
+    await infoPage.fillPostalCode('10002');
+    await page.waitForTimeout(1000);
+    await infoPage.clickContinue();
+    await page.waitForTimeout(2000);
 
-     const nameOfProducts = ['Sauce Labs Backpack','Sauce Labs Bolt T-Shirt','Sauce Labs Onesie'];
-     const prices = await cartOverView.getPriceOfProducts();
-     let Sum = 0;
+    const nameOfProducts = ['Sauce Labs Backpack', 'Sauce Labs Bolt T-Shirt', 'Sauce Labs Onesie'];
+    const prices = await cartOverView.getPriceOfProducts();
+    let Sum = 0;
 
-     for(const [index , name ] of nameOfProducts.entries()){
-        await expect( cartOverView.getProductName().nth(index)).toHaveText(name);
+    for (const [index, name] of nameOfProducts.entries()) {
+        await expect(cartOverView.getProductName().nth(index)).toHaveText(name);
         // console.log(name);
-        let cleanPrice = Number(prices[index].replace("$",""));
-        Sum+=cleanPrice;
+        let cleanPrice = Number(prices[index].replace("$", ""));
+        Sum += cleanPrice;
 
-     }
+    }
 
-      await cartOverView.totalSummery.scrollIntoViewIfNeeded();
-       await page.waitForTimeout(2000);
+    await cartOverView.totalSummery.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(2000);
 
-       const totalPrice = Number((await cartOverView.getTotalPrice()).replace("Item total: $",""));
-       await expect(totalPrice).toBe(Sum);
+    const totalPrice = Number((await cartOverView.getTotalPrice()).replace("Item total: $", ""));
+    await expect(totalPrice).toBe(Sum);
 
-       const tax = Number((await cartOverView.getTax()).replace("Tax: $",""));
-       const totalWithTax = totalPrice + tax ;
+    const tax = Number((await cartOverView.getTax()).replace("Tax: $", ""));
+    const totalWithTax = totalPrice + tax;
 
-       const summery = Number ((await cartOverView.getTotalSummery()).replace("Total: $",""));
+    const summery = Number((await cartOverView.getTotalSummery()).replace("Total: $", ""));
 
-        expect(summery).toBe(totalWithTax);
-        await cartOverView.clickFinish();
+    expect(summery).toBe(totalWithTax);
+    await cartOverView.clickFinish();
+
+    expect(await complete.successText).toHaveText('Thank you for your order!');
+    await page.waitForTimeout(2000);
+    await complete.clickBackButton();
+    await page.waitForTimeout(1000);
+
+
+    await productPage.clickMenu();
+    await page.waitForTimeout(1000);
+    await productPage.clickResetButton();
+    await page.waitForTimeout(1000);
+    await productPage.clickLogout();
+    await page.waitForTimeout(1000);
+
 
 })

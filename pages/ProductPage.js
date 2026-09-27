@@ -5,6 +5,7 @@ export class ProductPage {
         this.resetButton = page.getByRole('button', { name : 'Reset App State'});
         this.addToCartButtons = page.getByRole('button' , {name: 'Add to cart'});
         this.closeMenu = page.getByRole('button' ,{ name: 'Close Menu'});
+        this.logout = page.getByRole('button' ,{ name: 'Logout'});
         this.shoppingCartLink = page.locator('.shopping_cart_link');
 
     }
@@ -28,6 +29,9 @@ export class ProductPage {
 
      async clickShoppingCartLink(){
         await this.shoppingCartLink.click();
+    }
+    async clickLogout(){
+        await this.logout.click();
     }
 
 
