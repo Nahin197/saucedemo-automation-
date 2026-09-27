@@ -47,10 +47,13 @@ test('Inventory reset App Test ', async ({ page }) => {
         expect(await cartPage.getTitelOFProducts().nth(i)).toHaveText(productsName[i]);
         let cleanPrice = productsPrice[i].replace("$","");
         // console.log(cleanPrice);
-        sum = + Number(cleanPrice);
+        sum += Number(cleanPrice);
     }
 
-    await expect()
+    const expectedTotal = 29.99 + 15.99 + 7.99;
+    expect(sum).toBe(expectedTotal)
+    console.log("expected is equal to actual");
+    
 
     
 
