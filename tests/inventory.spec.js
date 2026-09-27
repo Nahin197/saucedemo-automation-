@@ -2,12 +2,16 @@ import { expect, test } from '@playwright/test';
 import { ProductPage } from '../pages/ProductPage';
 import { LoginPage } from '../pages/LoginPage';
 import { CartPage } from '../pages/CartPage';
+import { checkoutInfoPage } from '../pages/CheckoutInfoPage';
+import { CartOverViewPage } from '../pages/CartOverViewPage';
 
 test('Inventory reset App Test ', async ({ page }) => {
 
     const loginPage = new LoginPage(page);
     const productPage = new ProductPage(page);
     const cartPage = new CartPage(page);
+    const infoPage = new checkoutInfoPage(page);
+    const cartOverView = new CartOverViewPage(page);
 
     await loginPage.goto();
     await loginPage.input('standard_user', 'secret_sauce');
@@ -37,15 +41,15 @@ test('Inventory reset App Test ', async ({ page }) => {
     const productsPrice = await cartPage.getPriceOfProduct().allTextContents();
     let sum=0;
 
-    for (let i = 0; i < 3; i++) {
+    for(const [index , name ] of productsName.entries()){
         //await cartPage.getTitelOFProducts().nth(i).textContent();
         //await cartPage.getTitelOFProducts().allTextContents();
         //  let productName = await cartPage.getTitelOFProducts().nth(i).textContent();
         //expect(productName).toBe(productsName[i]);
         // page.expect().toHaveText()
 
-        expect(await cartPage.getTitelOFProducts().nth(i)).toHaveText(productsName[i]);
-        let cleanPrice = productsPrice[i].replace("$","");
+        expect(await cartPage.getTitelOFProducts().nth(index)).toHaveText(name);
+        let cleanPrice = productsPrice[index].replace("$","");
         // console.log(cleanPrice);
         sum += Number(cleanPrice);
     }
@@ -53,11 +57,45 @@ test('Inventory reset App Test ', async ({ page }) => {
     const expectedTotal = 29.99 + 15.99 + 7.99;
     expect(sum).toBe(expectedTotal)
     console.log("expected is equal to actual");
-    
 
-    
+     await cartPage.getCheckoutButton().scrollIntoViewIfNeeded();
+     await page.waitForTimeout(2000);
+     await cartPage.clickCheckout();
+     await page.waitForTimeout(2000);
 
+     await infoPage.fillFirstName('Nahin');
+     await page.waitForTimeout(1000);
+     await infoPage.fillLastName('Islam');
+     await page.waitForTimeout(1000);
+     await infoPage.fillPostalCode('10002');
+     await page.waitForTimeout(1000);
+     await infoPage.clickContinue();
+     await page.waitForTimeout(2000);
 
+     const nameOfProducts = ['Sauce Labs Backpack','Sauce Labs Bolt T-Shirt','Sauce Labs Onesie'];
+     const prices = await cartOverView.getPriceOfProducts();
+     let Sum = 0;
 
+     for(const [index , name ] of nameOfProducts.entries()){
+        await expect( cartOverView.getProductName().nth(index)).toHaveText(name);
+        // console.log(name);
+        let cleanPrice = Number(prices[index].replace("$",""));
+        Sum+=cleanPrice;
+
+     }
+
+      await cartOverView.totalSummery.scrollIntoViewIfNeeded();
+       await page.waitForTimeout(2000);
+
+       const totalPrice = Number((await cartOverView.getTotalPrice()).replace("Item total: $",""));
+       await expect(totalPrice).toBe(Sum);
+
+       const tax = Number((await cartOverView.getTax()).replace("Tax: $",""));
+       const totalWithTax = totalPrice + tax ;
+
+       const summery = Number ((await cartOverView.getTotalSummery()).replace("Total: $",""));
+
+        expect(summery).toBe(totalWithTax);
+        await cartOverView.clickFinish();
 
 })
