@@ -18,6 +18,10 @@ export class CartOverViewPage{
         return await this.priceOfProducts.allTextContents();
     }
 
+    async  getSinglePriceOfProduct(){
+        return await this.priceOfProducts.textContent();
+    }
+
    async getTotalPrice(){
         return await this.totalPrice.textContent();
     }
