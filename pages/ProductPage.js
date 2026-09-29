@@ -8,8 +8,8 @@ export class ProductPage {
         this.logout = page.getByRole('button', { name: 'Logout' });
         this.shoppingCartLink = page.locator('.shopping_cart_link');
         this.filterButton = page.locator('.product_sort_container');
-        this.filterButton1 = page.getByLabel('Sort products').selectOption({ label: 'Name (Z to A)' });
-        this.filterButton2 = page.locator('.product_sort_container').selectOption('za');
+        // this.filterButton1 = page.getByLabel('Sort products').selectOption({ label: 'Name (Z to A)' });
+        // this.filterButton2 = page.locator('.product_sort_container').selectOption('za');
 
     }
 

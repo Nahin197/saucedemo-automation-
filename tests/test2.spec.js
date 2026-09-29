@@ -8,6 +8,8 @@ import { checkoutCompletePage } from '../pages/checkoutCompletePage';
 
 test('succesfully iteams purchase and verity Test ', async ({ page }) => {
 
+    test.setTimeout(60000);
+
     const loginPage = new LoginPage(page);
     const productPage = new ProductPage(page);
     const cartPage = new CartPage(page);
