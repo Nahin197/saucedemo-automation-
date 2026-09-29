@@ -10,7 +10,7 @@
 - [Tech Stack](#-tech-stack)
 - [Project Structure](#-project-structure)
 - [Test Scenarios](#-test-scenarios)
-- [All 3 Testing Video](#all-3-testing-video)
+- [All 3 Testing Video](#-all-3-testing-video)
 
 ---
 
