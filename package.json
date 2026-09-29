@@ -3,12 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    
-     "test1":   "npx playwright test tests/test1.spec.js --project=chromium --headed",
-     "test2":   "npx playwright test tests/test2.spec.js --project=chromium --headed",
-     "test3":   "npx playwright test tests/test3.spec.js --project=chromium --headed",
-     "testall": "npx playwright test tests/test1.spec.js tests/test2.spec.js tests/test3.spec.js --project=chromium --headed --workers=1",
-     "getreport":"npx allure generate allure-results --clean && npx allure open allure-report"
+    "test1": "npx playwright test tests/test1.spec.js --project=chromium --headed && npx allure generate allure-results --clean && npx allure open allure-report",
+    "test2": "npx playwright test tests/test2.spec.js --project=chromium --headed && npx allure generate allure-results --clean && npx allure open allure-report",
+    "test3": "npx playwright test tests/test3.spec.js --project=chromium --headed && npx allure generate allure-results --clean && npx allure open allure-report",
+    "testall": "npx playwright test tests/test1.spec.js tests/test2.spec.js tests/test3.spec.js --project=chromium --headed --workers=1 && npx allure generate allure-results --clean && npx allure open allure-report"
   },
   "author": "",
   "license": "ISC",
