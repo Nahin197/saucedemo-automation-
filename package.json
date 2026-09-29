@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-     "test" : "npx playwright test --project=chromium --headed"
+    "test": "npx playwright test --project=chromium --headed",
+    "getreport":"npx allure generate allure-results --clean && npx allure open allure-report"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "@playwright/test": "^1.63.0",
-    "@types/node": "^26.6.2"
+    "@types/node": "^26.6.2",
+    "allure-commandline": "^2.46.1",
+    "allure-playwright": "^3.13.0"
   }
 }
