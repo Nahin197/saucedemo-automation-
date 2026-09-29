@@ -6,7 +6,7 @@ import { checkoutInfoPage } from '../pages/CheckoutInfoPage';
 import { CartOverViewPage } from '../pages/CartOverViewPage';
 import { checkoutCompletePage } from '../pages/checkoutCompletePage';
 
-test('test3 App Test ', async ({ page }) => {
+test('succesfully  single iteam purchase and verity Test', async ({ page }) => {
 
     test.setTimeout(60000);
 
@@ -76,11 +76,5 @@ test('test3 App Test ', async ({ page }) => {
     await page.waitForTimeout(1000);
     await productPage.clickLogout();
     await page.waitForTimeout(1000);
-
-
-
-
-
-
 
 });

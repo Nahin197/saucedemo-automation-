@@ -6,7 +6,7 @@ import { checkoutInfoPage } from '../pages/CheckoutInfoPage';
 import { CartOverViewPage } from '../pages/CartOverViewPage';
 import { checkoutCompletePage } from '../pages/checkoutCompletePage';
 
-test('Inventory reset App Test ', async ({ page }) => {
+test('succesfully iteams purchase and verity Test ', async ({ page }) => {
 
     const loginPage = new LoginPage(page);
     const productPage = new ProductPage(page);
