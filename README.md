@@ -10,11 +10,6 @@
 - [Tech Stack](#-tech-stack)
 - [Project Structure](#-project-structure)
 - [Test Scenarios](#-test-scenarios)
-- [Prerequisites](#-prerequisites)
-- [Installation](#-installation)
-- [Running Tests](#-running-tests)
-- [Generating Reports](#-generating-reports)
-- [Run Tests + Auto Generate Report](#-run-tests--auto-generate-report)
 - [Demo Video](#-demo-video)
 
 ---
