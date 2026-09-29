@@ -10,7 +10,7 @@
 - [Tech Stack](#-tech-stack)
 - [Project Structure](#-project-structure)
 - [Test Scenarios](#-test-scenarios)
-- [All 3 Testing Video](#-demo-video)
+- [All 3 Testing Video](#all-3-testing-video)
 
 ---
 
@@ -104,7 +104,6 @@ sauce-demo/
 - Reset App State and log out
 
 ---
-
 
 ## 🎥 All 3 Testing Video
 
