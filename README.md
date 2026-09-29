@@ -10,13 +10,22 @@
 - [Tech Stack](#-tech-stack)
 - [Project Structure](#-project-structure)
 - [Test Scenarios](#-test-scenarios)
-- [All 3 Tests Video](#-demo-video)
+- [All 3 Testing Video](#-demo-video)
 
 ---
 
 ## 📌 Project Overview
 
-This project automates key user journeys on the SauceDemo e-commerce website as part of an **Automation Testing Assessment**. It covers login validation, full purchase flows, cart verification, price calculation, and logout — all structured using the **Page Object Model** for maintainability and scalability.
+This project is a comprehensive end-to-end automation test suite developed for the SauceDemo e-commerce web application. It was built as part of an Automation Testing Assessment to demonstrate professional-grade test automation skills using modern tooling and industry best practices.
+The suite covers three critical user journeys:
+Authentication validation — verifying how the application handles restricted/locked user accounts with proper error messaging
+Full e-commerce purchase flow — simulating a complete shopping experience from login through cart management, checkout, order confirmation, and logout
+Sorted product selection & checkout — testing dynamic product filtering combined with a complete purchase journey using a performance-degraded user account
+The project is architected using the Page Object Model (POM) design pattern, which separates page-specific locators and actions into dedicated class files. This ensures the codebase is clean, reusable, and easy to maintain — each test file reads like a human-readable script rather than a pile of selectors.
+
+Test reporting is handled by both Allure (rich, visual dashboard with steps, timelines, and history) and Playwright's built-in HTML reporter, giving full visibility into pass/fail status, execution time, and failure traces after every run.
+
+The framework supports running tests individually, all together sequentially, or all together in parallel — with a single command that also auto-generates the report on completion.
 
 ---
 
